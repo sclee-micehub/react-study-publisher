@@ -32,6 +32,7 @@ const styles = {
     alignItems: "stretch",
     justifyContent: "flex-end",
     padding: "8px 16px 16px 16px",
+    borderTop: "1px solid #dee2e6",
   },
   btnDetails: {
     flex: 1,
