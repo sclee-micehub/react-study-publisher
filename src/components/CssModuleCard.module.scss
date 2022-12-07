@@ -1,8 +1,9 @@
 @use "/src/styles/base";
+@use "/src/styles/button";
 
 $border-color: #dee2e6;
 $max-width: 360px;
-$default-gap: 16px;
+$default-gap: base.$default-gap;
 
 .box {
   max-width: 360px;
@@ -62,9 +63,11 @@ $default-gap: 16px;
     border-top: 1px solid $border-color;
 
     .button.btn-details {
+      @include button.button(primary);
       flex: 1;
     }
     .button.btn-favorite {
+      @include button.button(default);
       flex: 0 0 auto;
       width: 36px;
       padding: 0px;
@@ -73,27 +76,4 @@ $default-gap: 16px;
     }
   }
 }
-.button {
-  display: inline-flex;
-  flex-flow: row;
-  align-items: center;
-  justify-content: center;
-  height: 36px;
-  padding: 0px $default-gap;
-  border: 1px solid transparent;
-  border-radius: calc($default-gap / 2);
-  font-size: 14px;
-  font-weight: 700;
-  text-decoration: none;
-  cursor: pointer;
 
-  &.primary {
-    background-color: #228be6;
-    color: #ffffff;
-  }
-  &.default {
-    border-color: #ced4da;
-    background-color: #ffffff;
-    color: #000000;
-  }
-}
