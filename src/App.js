@@ -1,22 +1,14 @@
-import {
-  alpha,
-  Box,
-  Button,
-  capitalize,
-  Chip,
-  createTheme,
-  CssBaseline,
-  Stack,
-  ThemeProvider,
-  Typography,
-} from "@mui/material";
+import { alpha, Chip, createTheme, CssBaseline, ThemeProvider, Typography } from "@mui/material";
 import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import MaterialCard from "./components/MaterialCard";
+import CardDisplay from "./components/CardDisplay";
 import PaletteDisplay from "./components/PaletteDisplay";
 import Portfolio from "./components/Portfolio";
 import ButtonsPage from "./pages/ButtonsPage";
+import CardPage from "./pages/CardPage";
 import HomePage from "./pages/HomePage";
+import { ThemeProvider as StyledThemeProvider } from "styled-components";
+import PortfolioPage from "./pages/PortfolioPage";
 
 const muiTheme = createTheme({
   palette: {
@@ -107,23 +99,50 @@ muiTheme.zIndex = {
   ...muiTheme.zIndex,
   snackbar: 1500,
 };
+const orangeTheme = {
+  colors: {
+    primary: "#ef891c",
+  },
+};
 
 const App = () => (
-  <ThemeProvider theme={muiTheme}>
-    <CssBaseline />
-    <Routes>
-      <Route path="/" element={<HomePage />}>
-        <Route index element={<Typography variant="h3">홈페이지입니다.</Typography>} />
-        <Route path="material-card" element={<MaterialCard />} />
-        <Route path="buttons" element={<ButtonsPage />}>
-          <Route path=":variant" element={<PaletteDisplay />} />
+  <StyledThemeProvider theme={orangeTheme}>
+    <ThemeProvider theme={muiTheme}>
+      <CssBaseline />
+      <Routes>
+        <Route path="/" element={<HomePage />}>
+          <Route index element={<Typography variant="h3">홈페이지입니다.</Typography>} />
+          <Route path="cards" element={<CardPage />}>
+            <Route
+              path=":name"
+              element={
+                <CardDisplay
+                  image={
+                    <img
+                      src="https://googlefonts.github.io/korean/public/assets/og-img.png"
+                      alt="Google Fonts + 한국어"
+                    />
+                  }
+                  title="Google Fonts + 한국어"
+                  category="OSS"
+                  summary="좋은 타이포그래피를 통해 웹은 더욱 아름답고, 빠르며, 누구나 참여할
+            수 있는 공간이 될 수 있습니다. Google Fonts는 이 사이트에 수록된 오픈 소스
+            한글 폰트를 머신 러닝에 기반을 둔 최적화 기술을 통해 시범적으로 제공합니다."
+                  link="https://googlefonts.github.io/korean/"
+                />
+              }
+            />
+          </Route>
+          <Route path="buttons" element={<ButtonsPage />}>
+            <Route path=":variant" element={<PaletteDisplay />} />
+          </Route>
+          <Route path="chip" element={<Chip label="React Router" />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
-        <Route path="chip" element={<Chip label="React Router" />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Route>
-      <Route path="/portfolio" element={<Portfolio />} />
-    </Routes>
-  </ThemeProvider>
+        <Route path="/portfolio" element={<PortfolioPage />} />
+      </Routes>
+    </ThemeProvider>
+  </StyledThemeProvider>
 );
 
 export default App;
